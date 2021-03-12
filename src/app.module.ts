@@ -12,12 +12,7 @@ import { mailerConfig } from './configs/mailer.config'
 import { winstonConfig } from './configs/winston.config'
 @Module({
     imports: [
-        ConfigModule.forRoot({
-            envFilePath:
-                process.env.NODE_ENV === 'development'
-                    ? '.env.development'
-                    : '.env'
-        }),
+        ConfigModule.forRoot(),
         WinstonModule.forRoot(winstonConfig),
         MailerModule.forRoot(mailerConfig()),
         TypeOrmModule.forRoot(typeOrmConfig()),

@@ -15,9 +15,6 @@ jobs:
         steps:
             - uses: actions/checkout@v2
 
-            - name: Set ENV variables
-              run: for v in `cat env` ; do echo "::set-env name=${v%%=*}::${v##*=}" ; done
-              
             - name: Build the Docker image
               run: docker-compose build test
 

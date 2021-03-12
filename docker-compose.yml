@@ -30,14 +30,13 @@ services:
           POSTGRES_DB: $DB_DATABASE
         networks:
             - app-network
-            
+
     dev:
         build:
           context: .
         image: nodejs
         container_name: nestjs-dev
         restart: unless-stopped
-        env_file: .env.development
         environment:
             NODE_ENV: development
             DB_HOST: pgsql-dev
