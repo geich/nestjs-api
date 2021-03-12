@@ -1,22 +1,22 @@
 name: Api Tests
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
 
 jobs:
 
-  build:
+    build:
 
-    runs-on: ubuntu-latest
+        runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-    
-    - name: Build the Docker image
-      run: docker-compose build test
+        steps:
+            - uses: actions/checkout@v2
 
-    - name: Run the Docker image
-      run: docker-compose run test
+            - name: Build the Docker image
+              run: docker-compose build test
+
+            - name: Run the Docker image
+              run: docker-compose run test
