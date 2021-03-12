@@ -11,5 +11,6 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
+            
             - name: Run the Docker image
               run: docker-compose -f docker-test.yml up
