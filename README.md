@@ -11,8 +11,7 @@ Make sure you have [Node.js](https://nodejs.org/en/), [Nestjs Cli](https://docs.
 ```sh
 - Create .env same .env.example content
 
-- run docker-compose run dev or 
-  run docker-compose up -d and yarn start:dev
+- run docker-compose run dev
   
 - run docker-compose run test to run jest tests
 ```
