@@ -1,62 +1,38 @@
-version: '3'
+version: '3.7'
 
 services:
     pgsql:
-        image: postgres:alpine
+        image: postgres:13
         ports:
-          - '5432:5432'
+          - '$DB_PORT:5432'
         container_name: 'pgsql'
         restart: always
         volumes:
           - pg-data:/var/lib/postgresql/data
-        environment:
-          POSTGRES_USER: $DB_USER
-          POSTGRES_PASSWORD: $DB_PASS
-          POSTGRES_DB: $DB_DATABASE
+        env_file: .env
         networks:
             - app-network
 
-    pgsql-dev:  
-        image: postgres:alpine
-        ports:
-          - '5433:5432'
-        container_name: 'pgsql-dev'
-        restart: always
-        volumes:
-          - pg-data-dev:/var/lib/postgresql/data
-        environment:
-          POSTGRES_USER: $DB_USER
-          POSTGRES_PASSWORD: $DB_PASS
-          POSTGRES_DB: $DB_DATABASE
-        networks:
-            - app-network
-
-    dev:
+    api:
         build:
-          context: .
+            context: .
+            dockerfile: Dockerfile.dev
         image: nodejs
-        container_name: nestjs-dev
+        container_name: api
         restart: unless-stopped
-        environment:
-            NODE_ENV: development
-            DB_HOST: pgsql-dev
+        env_file: .env
+        environment: 
+            - DB_HOST=pgsql
         ports:
-            - "3001:3001"
+            - "$PORT:3000"
         volumes:
             - .:/app
             - node_modules:/app/node_modules
         command: npm run start:dev
         depends_on:
-            - pgsql-dev
+            - pgsql
         networks:
             - app-network
-
-    test: 
-        container_name: api-test
-        build:
-            context: .
-            dockerfile: Dockerfile
-        command: npm run test
         
 networks:
     app-network:
@@ -64,5 +40,4 @@ networks:
 
 volumes:
     pg-data:
-    pg-data-dev:
     node_modules:
