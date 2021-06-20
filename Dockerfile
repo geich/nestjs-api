@@ -2,9 +2,9 @@ FROM node:14-alpine
 
 WORKDIR /app
 
-ADD . .
+ADD src/ .
 
-RUN npm i
+RUN npm i --production
 
 EXPOSE 3000
 
